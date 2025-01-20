@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source setup.cfg
-ver=0.7
+ver=0.8
 
 LOCKFILE="$DEYEDIR/deye.lock"
 # Funkcja czyszcząca plik blokady
@@ -122,8 +122,9 @@ set_charge() {
   fi
 
   # Pobranie aktualnej wartości encji
-  READCHARGE=$(curl -s --max-time 2 -X GET "${HA_ADDR}/api/states/number.deye12kw_battery_grid_charging_current" \
+  READCHARGE=$(curl -s --max-time 2 -X GET "${HA_ADDR}/api/states/${GRID_CURRENT}" \
     -H "Authorization: Bearer ${APIKEY}" | jq -r .state)
+        
 
   # Sprawdzenie, czy pobieranie wartości nie powiodło się
   if [ -z "$READCHARGE" ]; then
@@ -141,7 +142,9 @@ set_charge() {
   RESPONSE=$(curl -s --max-time 2 -X POST "${HA_ADDR}/api/services/number/set_value" \
     -H "Authorization: Bearer ${APIKEY}" \
     -H "Content-Type: application/json" \
-    -d '{"entity_id": "number.deye12kw_battery_grid_charging_current", "value": '"$REQUESTCHARGE"'}')
+    -d '{"entity_id": "'"${GRID_CURRENT}"'", "value": '"${REQUESTCHARGE}"'}')
+
+
 
   if [ -z "$RESPONSE" ]; then
     echo "Błąd: brak odpowiedzi od API USTALANA $REQUESTCHARGE."
