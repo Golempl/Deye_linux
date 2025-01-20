@@ -1,4 +1,8 @@
 Dostępna jest również wersja pod Node-Red wymagająca Home Assistant + Node Red
+W wersji Node Red mamy przycisk start o stop którym uruchamiamy automatyzację.
+Mamy też kilka globalnych zmiennch które musimy wyedytować pod siebie.
+Należy zmienić też nazwy encji pod swoje i wybrać serwer home assistenta w miejscach gdzie jest to potrzebne.
+Poglądowo opis encji można znaleźć w setup.cfg
 
 Ten skrypt ma na celu regulować moc ładowania i rozładowana magazynu w celu ograniczenia oddawania energii do sieci.
 Celem jego jest ograniczenie oddawania energii do sieci do minimum.
