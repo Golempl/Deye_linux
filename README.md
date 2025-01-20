@@ -10,7 +10,9 @@ Jest to ulepszenie działania trybu AC Couple on Grid side/load.
 
 UWAGA: Twój harmonogram pracy w Deye zostanie zmieniony. Godziny nie zmienią się, zmieni się tryb grid charge i jego moc.
 
-Wymagane jest ustawienie grid charge w ustawieniach Deye. Możemy ustawić GRID CHARGE na 0A
+Wymagane jest ustawienie grid charge w ustawieniach Deye.
+switch.deye12kw_battery_grid_charging na włączone + ustawić number.deye12kw_battery_grid_charging_current na 0A
+z poziomu Home Assistant/Ustawienia/Solarman/ urządzenie
 
 Nie ma znaczenia ile i jakie mamy inwertery przed lub za Deye.
 Skrypt nie będzie zapewne przydatny dla osób które posiadają tylko sam falownik Deye.
