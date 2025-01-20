@@ -29,7 +29,7 @@ A: Zwykłych harmonogramów możemy mieć 6 i nie są one zawsze optymalne pod p
 od sytuacji.
 
 Dodatkowo możemy ustalić stan naładowania krytycznego, gdy magazyn znajdzie się poniżej tej wartości (np. w skutek braku zasilania sieciowego)
-zostanie uruchomione ładowanie magazynu wymuszone aż do momentu gdy osiągnie on procent dolnego naładowania.
+zostanie uruchomione ładowanie magazynu wymuszone aż do momentu gdy osiągnie on procent ustalonego dolnego naładowania.
 
 Do działania potrzebujemy Home Assistant wraz z obsługą Deye https://github.com/davidrapan/ha-solarman
 Potrzebujemy opomiarowaną produkcję PV, opomiarowanie odczytywane z opuźnieniem np. z chmury nie koniecznie sprawdzi się.
@@ -38,6 +38,8 @@ Zalecam podlicznik Zamela lub Shelly, ewentualnie odczyt z modbusa na żywo cele
 Kolejnym wymaganiem jest opomiarowanie poborów przed Deye, tzw. non essential, zwykle są to urządzenia wysokiej mocy jak ładowarka EV czy pompa ciepła.
 Cel jest taki żeby mieć wartość wszystkich poborów w jednej encji, tj. LOAD + przed Deye. Odczyt (deye external power + ups power) nie sprawdzi się.
 Idealnie jest mieć podlicznik na external power i sumować z ups power.
+
+![Schemat](images/deye_offload.png)
 
 Dodatkowo mamy możliwość ustalenia maksymalnej mocy ładowania magazynu. Ta wartość nie zignoruje ustawien BMS/magazynu w deye.
 
