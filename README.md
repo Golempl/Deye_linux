@@ -4,6 +4,8 @@ Mamy też kilka globalnych zmiennch które musimy wyedytować pod siebie.
 Należy zmienić też nazwy encji pod swoje i wybrać serwer home assistenta w miejscach gdzie jest to potrzebne.
 Poglądowo opis encji można znaleźć w setup.cfg
 
+Wersja dla Node-Red działa niezależnie od skryptu bash, jak i również w drugą stronę.
+
 Ten skrypt ma na celu regulować moc ładowania i rozładowana magazynu w celu ograniczenia oddawania energii do sieci.
 Celem jego jest ograniczenie oddawania energii do sieci do minimum.
 Jest to ulepszenie działania trybu AC Couple on Grid side/load.
