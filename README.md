@@ -1,10 +1,12 @@
-Dostępna jest również wersja pod Node-Red wymagająca Home Assistant + Node Red
+Dostępna jest również wersja pod Node-Red (kod do importu jest w katalogu /node-red , wymagająca Home Assistant + Node Red
 W wersji Node Red mamy przycisk start o stop którym uruchamiamy automatyzację.
 Mamy też kilka globalnych zmiennch które musimy wyedytować pod siebie.
 Należy zmienić też nazwy encji pod swoje i wybrać serwer home assistenta w miejscach gdzie jest to potrzebne.
+
 Poglądowo opis encji można znaleźć w setup.cfg
 
-Wersja dla Node-Red działa niezależnie od skryptu bash, jak i również w drugą stronę.
+Wersja dla Node-Red działa niezależnie od skryptu bash, jak i również wersja bash nie wymaga node-red.
+
 
 Ten skrypt ma na celu regulować moc ładowania i rozładowana magazynu w celu ograniczenia oddawania energii do sieci.
 Celem jego jest ograniczenie oddawania energii do sieci do minimum.
@@ -17,9 +19,13 @@ switch.deye12kw_battery_grid_charging na włączone + ustawić number.deye12kw_b
 z poziomu Home Assistant/Ustawienia/Solarman/ urządzenie
 
 Nie ma znaczenia ile i jakie mamy inwertery przed lub za Deye.
-Skrypt nie będzie zapewne przydatny dla osób które posiadają tylko sam falownik Deye.
 
-Na tą chwilę skrypt działa opierając się na procentach naładowania magazynu. 
+Skrypt nie będzie zapewne przydatny dla osób które posiadają tylko sam falownik Deye. Deye sam potrafi w oparciu
+o swoje harmonogramy i algorytmy robić to samo jednak praca w trybie Couple to inna sprawa i tu już nie działa
+to tak jak oczekiwałem.
+
+Na tą chwilę skrypt działa opierając się na procentach naładowania magazynu.
+Mocy produkcji i sumy mocy poborów.
 
 Jak to działa ?
 
@@ -36,12 +42,35 @@ Dodatkowo możemy ustalić stan naładowania krytycznego, gdy magazyn znajdzie s
 zostanie uruchomione ładowanie magazynu wymuszone aż do momentu gdy osiągnie on procent ustalonego dolnego naładowania.
 
 Do działania potrzebujemy Home Assistant wraz z obsługą Deye https://github.com/davidrapan/ha-solarman
-Potrzebujemy opomiarowaną produkcję PV, opomiarowanie odczytywane z opuźnieniem np. z chmury nie koniecznie sprawdzi się.
-Zalecam podlicznik Zamela lub Shelly, ewentualnie odczyt z modbusa na żywo celem szybkiej reakcji na zmiany.
+
+Potrzebujemy opomiarowaną produkcję PV, opomiarowanie odczytywane z opuźnieniem np. z chmury, nie sprawdzi sie.
+Odczyt musi być w czasie rzeczywistym.
+Zalecam podlicznik Zamela lub Shelly ktore podają dane w czasie rzeczywistym.
 
 Kolejnym wymaganiem jest opomiarowanie poborów przed Deye, tzw. non essential, zwykle są to urządzenia wysokiej mocy jak ładowarka EV czy pompa ciepła.
-Cel jest taki żeby mieć wartość wszystkich poborów w jednej encji, tj. LOAD + przed Deye. Odczyt (deye external power + ups power) nie sprawdzi się.
-Idealnie jest mieć podlicznik na external power i sumować z ups power.
+Cel jest taki żeby mieć wartość wszystkich poborów w jednej encji, tj. LOAD (odczyt z Deye) + Non essential (Odczyt z podlicznika)
++ Straty (Odczyt z Deye)
+
+Odczyt (deye external power + ups power) nie będzie działał, moce tu sa zalezne od trybow pracy i baterii co wyklucza
+poprawne działanie.
+
+
+Przykład (configuration.yaml):
+    - name: "Shelly Allside Power Total"
+      unique_id: shelly_allside_power_total
+      state: >-
+        {% set ups_power = states('sensor.deye12kw_load_ups_power') | float(0) %}
+        {% set gridside_power = states('sensor.shelly_lg_pompa_power_total') | float(0) %}
+        {% set power_losses = states('sensor.deye12kw_power_losses') | float(0) %}
+        {{ ups_power + gridside_power + power_losses }}
+      unit_of_measurement: W
+      device_class: power
+      state_class: measurement
+
+
+Tak podana encja będzie zwracać nam wartość faktyczną poborów przed i za Deye dzięki temu porównamy tą moc 
+z encją produkcji PV i na jej podstawie podejmniemy decyzję o trybie pracy w Deye.
+
 
 ![Schemat](images/deye_offload.png)
 
