@@ -326,7 +326,7 @@ echo Czekamy na stabilizację $SLEEP sekund
 sleep $SLEEP
 
 while true; do
-    echo "###### Deye prosument $VER ######"
+    echo "###### Deye HA Control $VER ######"
     echo "$(date '+%Y-%m-%d %H:%M:%S') ####### URUCHAMIAM ########" >> $DEYEDIR/deye.log
     sun
     UPDATE=$(date '+%Y-%m-%d %H:%M:%S')

@@ -96,4 +96,7 @@ A: Tak ale tylko godzinowe, a dzięki temu skryptowi czas bilansowania jest ogra
 Uruchomienie:
 
 Wgrywamy na serwerek linuxowy do jakiegoś katalogu gdzie najlepiej mamy dostęp przez przeglądarkę. ustawiamy setup.cfg pod siebie. uruchamiamy go.sh
-Możemy mieć podgląd/konfigurację poprzez web.
+Możemy mieć podgląd/konfigurację poprzez web (zalecam pierwszą konfigurację z poziomu shella).
+
+![WEB](images/deye_ha.png)
+

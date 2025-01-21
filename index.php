@@ -63,7 +63,7 @@ $chargeforce_description = $chargeforce === '1' ? 'Tak' : 'Nie';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deye prosument 0.7</title>
+    <title>Deye HA Control 0.8</title>
     <meta http-equiv="refresh" content="2">
     <style>
         body {
@@ -119,7 +119,7 @@ $chargeforce_description = $chargeforce === '1' ? 'Tak' : 'Nie';
 </head>
 <body>
     <div class="container">
-        <h1>Deye prosument v0.7</h1>
+        <h1>Deye HA Control v0.8</h1>
         <ul>
             <li><strong>Aktualne ładowanie:</strong> <?php echo htmlspecialchars($setcharge); ?>A</li>
             <li><strong>Obciażenie baterii:</strong> <?php echo htmlspecialchars($battcur); ?>A</li>
