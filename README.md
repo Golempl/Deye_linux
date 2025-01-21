@@ -56,6 +56,7 @@ poprawne działanie.
 
 
 Przykład (configuration.yaml):
+```
     - name: "Shelly Allside Power Total"
       unique_id: shelly_allside_power_total
       state: >-
@@ -66,7 +67,7 @@ Przykład (configuration.yaml):
       unit_of_measurement: W
       device_class: power
       state_class: measurement
-
+```
 
 Tak podana encja będzie zwracać nam wartość faktyczną poborów przed i za Deye dzięki temu porównamy tą moc 
 z encją produkcji PV i na jej podstawie podejmniemy decyzję o trybie pracy w Deye.
